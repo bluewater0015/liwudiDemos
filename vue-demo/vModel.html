@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue学习</title>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+</head>
+<body>
+<div id="app">
+    <input type="text" v-bind:value="message" v-on:input="inputEvent" />
+    <span>{{ message }}</span>
+
+    <Com title="123" v-on:parent="myEvent"></Com>
+</div>
+</body>
+<script>
+
+    var Com = {
+        template:'<div v-on:click="childEvent">{{title}}</div>',
+        props:['title'],
+        methods:{
+            childEvent: function () {
+                this.$emit("parent",'123456');
+            }
+        }
+    };
+
+   new Vue({
+       el:'#app',
+       data: {
+           message: 123
+       },
+       components: {
+           'Com': Com
+       },
+       methods:{
+           inputEvent: function(e){
+               console.log(e);
+               this.message = e.target.value
+           },
+           myEvent: function (data) {
+               console.log(data);
+           }
+       }
+   })
+</script>
+</html>

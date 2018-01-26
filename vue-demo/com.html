@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue学习</title>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+</head>
+<body>
+<div id="app">
+    <span>{{ message }}</span>
+    <button v-on:click="clickEvent">click</button>
+</div>
+</body>
+<script>
+
+   new Vue({
+       el:'#app',
+       data: {
+           message: 123
+       },
+       methods: {
+           clickEvent: function () {
+               this.message = 456;
+           }
+       },
+       beforeCreate: function(){
+           console.log('beforeCreate');
+           console.log(this.message);
+           console.log(this.$el);
+       },
+       created: function () {
+           console.log('created');
+           console.log(this.message);
+            this.timer = setInterval(function () {
+                console.log(12345)
+            }.bind(this),1000)
+           console.log(this.$el);
+       },
+       beforeMount: function () {
+           console.log('beforeMount');
+           console.log(this.$el);
+       },
+       mounted: function () {
+           console.log('mounted');
+           console.log(this.$el);
+       },
+       beforeUpdate: function () {
+           console.log('beforeUpdate')
+       },
+       updated:function () {
+           console.log('updated')
+       },
+       beforeDestory: function () {
+           console.log('beforeDestory');
+           clearInterval(this.timer)
+       },
+       destoryed: function () {
+           console.log('destoryed')
+       }
+   })
+</script>
+</html>
